@@ -29,15 +29,16 @@ const options = yargs
     demandOption: true,
   }).argv;
 
-const workerPath = path.resolve("scraping-worker.js");
+// const workerPath = path.resolve("scraping-worker.js");
+const workerPath = "./scraping-worker.js";
 
 const seenUrls = {};
 
 // Main function
-const crawl = ({ url }) => {
+const crawl = async ({ url }) => {
   if (seenUrls[url]) return;
   seenUrls[url] = true;
-  new Promise(async (parentResolve, parentReject) => {
+  // new Promise(async (parentResolve, parentReject) => {
     const { host, protocol } = new URL(url);
 
     const response = await fetch(url);
@@ -88,10 +89,10 @@ const crawl = ({ url }) => {
       )
     );
 
-    parentResolve(results);
+    // parentResolve(results);
     // results.map(result => console.log(result));
 
-  });
+  // });
 };
 
 // Function to format url
